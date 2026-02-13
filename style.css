@@ -1,12 +1,29 @@
-/* 1. VARIABEL WARNA (ORANYE PEKAT) */
 :root {
     --bg-dark: #050505;
-    --accent-orange: #FF4500;
-    /* Oranye pekat menyala */
-    --accent-dark: #E65100;
-    /* Oranye lebih tua */
     --text-white: #ffffff;
     --text-gray: #a0a0a0;
+    --accent-orange: #FF4500;
+    --accent-dark: #E65100;
+}
+
+[data-theme="blue"] {
+    --accent-orange: #00d2ff;
+    --accent-dark: #00b0d6;
+}
+
+[data-theme="green"] {
+    --accent-orange: #2ecc71;
+    --accent-dark: #27ae60;
+}
+
+[data-theme="purple"] {
+    --accent-orange: #9b59b6;
+    --accent-dark: #8e44ad;
+}
+
+[data-theme="yellow"] {
+    --accent-orange: #f1c40f;
+    --accent-dark: #f39c12;
 }
 
 * {
@@ -23,9 +40,9 @@ body {
     min-height: 100vh;
     position: relative;
     padding-top: 70px;
+    transition: background-color 0.5s ease;
 }
 
-/* 2. BACKGROUND MESH GRADIENT BERGERAK */
 body::before {
     content: "";
     position: fixed;
@@ -35,11 +52,13 @@ body::before {
     height: 200%;
     z-index: -1;
     background:
-        radial-gradient(circle at 30% 30%, rgba(230, 81, 0, 0.45) 0%, transparent 40%),
-        radial-gradient(circle at 70% 60%, rgba(255, 69, 0, 0.3) 0%, transparent 40%),
-        radial-gradient(circle at 40% 80%, rgba(139, 46, 0, 0.4) 0%, transparent 45%);
+        radial-gradient(circle at 30% 30%, var(--accent-dark) 0%, transparent 40%),
+        radial-gradient(circle at 70% 60%, var(--accent-orange) 0%, transparent 40%),
+        radial-gradient(circle at 40% 80%, var(--accent-dark) 0%, transparent 45%);
     filter: blur(80px);
     animation: meshFlow 20s infinite alternate ease-in-out;
+    opacity: 0.4;
+    transition: background 0.5s ease;
 }
 
 @keyframes meshFlow {
@@ -56,7 +75,6 @@ body::before {
     }
 }
 
-/* Garis vertikal estetis */
 body::after {
     content: "";
     position: fixed;
@@ -70,7 +88,6 @@ body::after {
     pointer-events: none;
 }
 
-/* 3. NAVIGASI FIXED */
 nav {
     position: fixed;
     top: 0;
@@ -80,9 +97,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 15px 5%;
-    /* Adjusted padding for better fit */
     background: rgba(0, 0, 0, 0.8);
-    /* Slightly darker for contrast */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
@@ -93,13 +108,13 @@ nav {
     font-weight: 800;
     letter-spacing: 2px;
     color: var(--accent-orange);
+    transition: color 0.3s ease;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
     gap: 15px;
-    /* Tighter gap to fit more items */
 }
 
 .nav-links li a {
@@ -110,17 +125,14 @@ nav {
     letter-spacing: 1px;
     transition: 0.3s;
     padding: 8px 16px;
-    /* Touch target */
     border-radius: 20px;
-    /* Pill shape */
 }
 
 .nav-links li a:hover {
     color: var(--accent-orange);
-    background: rgba(255, 69, 0, 0.15);
-    /* Orange pill background */
+    background: rgba(255, 255, 255, 0.05);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 69, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .menu-toggle {
@@ -134,7 +146,10 @@ nav {
     display: none;
 }
 
-/* RESPONSIVE NAV */
+.mobile-theme-item {
+    display: none;
+}
+
 @media (max-width: 768px) {
     nav {
         padding: 20px 5%;
@@ -148,42 +163,27 @@ nav {
         position: fixed;
         top: 0;
         right: 0;
-        /* Align to right */
         left: auto;
-        /* Reset left */
         width: 260px;
-        /* Fixed narrower width */
         height: 100vh;
-        /* Full height */
         background: rgba(10, 10, 10, 0.95);
-        /* Darker, sleek background */
         backdrop-filter: blur(20px);
-        /* Stronger blur */
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        /* Center items vertically */
         gap: 30px;
         transform: translateX(100%);
-        /* Hide off-screen to the right */
         transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0);
         padding: 40px 20px;
-        /* Add padding */
         box-shadow: -10px 0 30px rgba(0, 0, 0, 0.7);
-        /* Stronger shadow */
         z-index: 1001;
-        /* Above everything */
         border-radius: 30px 0 0 30px;
-        /* Rounded corners on left */
-        border-left: 1px solid rgba(255, 69, 0, 0.2);
-        /* Subtle highlight border */
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .nav-links.active {
         transform: translateX(0);
-        /* Slide in */
         height: 100vh;
-        /* Ensure full height */
         padding: 0;
         border-bottom: none;
     }
@@ -217,6 +217,32 @@ nav {
         transform: rotate(90deg);
     }
 
+    .mobile-theme-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
+    }
+
+    .mobile-theme-item span {
+        color: var(--text-gray);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .mobile-theme-switch {
+        display: flex;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 10px 20px;
+        border-radius: 30px;
+    }
+
     .logo {
         font-size: 1.2rem;
     }
@@ -226,7 +252,6 @@ nav {
     }
 }
 
-/* RESPONSIVE HERO */
 @media (max-width: 1024px) {
     .hero-container {
         padding: 30px;
@@ -255,7 +280,6 @@ nav {
     }
 }
 
-/* 4. HERO SECTION */
 .hero {
     min-height: 90vh;
     display: flex;
@@ -269,7 +293,6 @@ nav {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    /* Liquid Glass Dashboard Effect */
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -290,7 +313,7 @@ nav {
 .outline-text {
     color: transparent;
     -webkit-text-stroke: 2px var(--accent-orange);
-    text-shadow: 0 0 15px rgba(230, 81, 0, 0.3);
+    text-shadow: 0 0 15px var(--accent-dark);
 }
 
 .description {
@@ -300,7 +323,6 @@ nav {
     margin-bottom: 25px;
 }
 
-/* 5. SOSIAL MEDIA & TOMBOL */
 .social-links {
     display: flex;
     gap: 20px;
@@ -329,16 +351,15 @@ nav {
     border-radius: 50px;
     transition: 0.3s;
     border: none;
-    box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .btn-primary:hover {
-    box-shadow: 0 0 25px rgba(255, 69, 0, 0.6);
+    box-shadow: 0 0 25px var(--accent-dark);
     transform: scale(1.05);
     background-color: var(--accent-dark);
 }
 
-/* RESPONSIVE HERO */
 @media (max-width: 768px) {
     .hero {
         padding: 0 5%;
@@ -382,15 +403,15 @@ nav {
     }
 }
 
-/* 6. FOTO PROFIL (NEON ORANGE) */
 .profile-circle {
     width: 420px;
     height: 420px;
     border-radius: 50%;
     overflow: hidden;
     border: 5px solid var(--accent-orange);
-    box-shadow: 0 0 40px rgba(255, 69, 0, 0.4);
+    box-shadow: 0 0 40px var(--accent-dark);
     z-index: 2;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .profile-circle img {
@@ -400,23 +421,18 @@ nav {
     object-position: center 20%;
 }
 
-/* Update pada bagian Section 6 (About Me) */
 .profile-circle-small {
     width: 420px;
-    /* Matched to Home Profile size */
     height: 420px;
-    /* Matched to Home Profile size */
     border-radius: 50%;
     overflow: hidden;
     border: 5px solid var(--accent-orange);
-    /* Thicker border like Home */
     z-index: 2;
-    box-shadow: 0 0 40px rgba(255, 69, 0, 0.4);
-    /* Stronger glow like Home */
+    box-shadow: 0 0 40px var(--accent-dark);
     background-color: #000;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Update pada bagian gambar di Section 6 (About Me) */
 .profile-circle-small img {
     width: 100%;
     height: 100%;
@@ -427,52 +443,90 @@ nav {
 
 }
 
-/* Efek tambahan saat kursor menyentuh foto */
 .profile-circle-small:hover img {
     transform: scale(1.05);
-    /* Foto sedikit membesar saat hover */
 }
 
-/* Tambahkan styling untuk judul section agar menyala */
 .section-title {
     text-align: center;
     font-size: 2.5rem;
     font-weight: 800;
-    margin-bottom: 50px;
+    font-weight: 800;
+    margin-bottom: 20px;
     letter-spacing: 2px;
 }
 
 .section-title span {
     color: var(--accent-orange);
     -webkit-text-stroke: 1px var(--accent-orange);
-    text-shadow: 0 0 10px rgba(255, 69, 0, 0.3);
+    text-shadow: 0 0 10px var(--accent-dark);
+    transition: all 0.3s ease;
 }
 
-/* RESPONSIVE GENERAL */
 @media (max-width: 768px) {
     .section-title {
         font-size: 2rem;
-        margin-bottom: 30px;
+        margin-bottom: 15px;
     }
 }
 
-/* 8. ABOUT ME SECTION - FIX SPACE */
+.section-subtitle {
+    text-align: center;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0 auto 40px;
+    max-width: 800px;
+    padding: 0 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    letter-spacing: 0.5px;
+}
+
+.section-subtitle::before,
+.section-subtitle::after {
+    content: "";
+    height: 2px;
+    width: 60px;
+    background: var(--accent-orange);
+    border-radius: 2px;
+    opacity: 0.7;
+    position: static;
+    /* Override previous absolute */
+}
+
+.section-subtitle::before {
+    background: linear-gradient(to right, transparent, var(--accent-orange));
+}
+
+.section-subtitle::after {
+    background: linear-gradient(to left, transparent, var(--accent-orange));
+}
+
+@media (max-width: 768px) {
+    .section-subtitle {
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .section-subtitle::before,
+    .section-subtitle::after {
+        width: 35px;
+    }
+}
 
 .about-section {
     min-height: 105vh;
-    /* Memaksa satu section mengambil satu layar penuh */
     display: flex;
     align-items: center;
-    /* Konten berada di tengah secara vertikal */
     justify-content: center;
-    /* Konten berada di tengah secara horizontal */
     padding: 20px 0 0;
-    /* Tambah padding atas untuk ruang dari nav */
     position: relative;
     margin-bottom: 0;
-    /* Hapus margin bawah untuk transisi mulus */
     overflow: hidden;
-    /* Pastikan tidak ada overflow */
     opacity: 0;
     transform: translateY(50px);
     transition: all 1s ease-out;
@@ -488,41 +542,31 @@ nav {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    /* Kurangi gap agar elemen bisa lebih lebar */
     width: 100%;
     max-width: 95%;
-    /* Diubah dari 1200px agar hampir memenuhi lebar layar */
     padding: 0 5%;
-    /* Padding dikurangi agar lebih lebar ke samping */
 }
 
-/* RESPONSIVE ABOUT - Hanya aktif di HP */
 @media (max-width: 768px) {
     .about-section {
         min-height: 100vh;
-        /* Memaksa tinggi minimal setinggi layar HP */
         display: flex;
         align-items: center;
-        /* Konten berada di tengah secara vertikal */
         justify-content: center;
         padding: 80px 5% 40px;
-        /* Padding atas dikasih 80px supaya tidak tertutup Navbar */
         overflow: hidden;
     }
 
     .about-container {
         flex-direction: column;
-        /* Membuat susunan atas-bawah di HP */
         gap: 20px;
     }
 
     .about-image {
         display: flex;
         justify-content: center;
-        /* MEMAKSA FOTO KE TENGAH (Hanya di HP) */
         width: 100%;
         transform: none !important;
-        /* Mematikan geseran animasi agar tidak melenceng */
         opacity: 1 !important;
     }
 
@@ -530,12 +574,10 @@ nav {
         width: 280px;
         height: 280px;
         margin: 0 auto;
-        /* Pengaman agar tetap center */
     }
 
     .about-text {
         text-align: left;
-        /* Teks deskripsi kamu tetap rapi di kiri */
         width: 100%;
         transform: none !important;
         opacity: 1 !important;
@@ -546,7 +588,6 @@ nav {
     flex: 1;
     display: flex;
     justify-content: flex-start;
-    /* Diubah dari flex-end agar foto bergeser ke arah kiri/tengah */
     opacity: 0;
     transform: translateX(50px);
     transition: all 1s ease-out;
@@ -554,7 +595,6 @@ nav {
 
 .about-text {
     flex: 2;
-    /* Diubah dari 1.5 agar area background glass teks lebih lebar */
     text-align: left;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(12px);
@@ -562,7 +602,6 @@ nav {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
     padding: 40px;
-    /* Tambah padding dalam agar box terlihat lebih besar dan elegan */
     border-radius: 20px;
     opacity: 0;
     transform: translateX(-50px);
@@ -571,7 +610,6 @@ nav {
 
 .about-text h2 {
     margin-top: 0;
-    /* Menghilangkan jarak di atas judul */
     margin-bottom: 20px;
 }
 
@@ -581,7 +619,6 @@ nav {
     color: #dadada;
     margin-bottom: 15px;
     text-align: justify;
-    /* Membuat paragraf rapi rata kanan-kiri */
 }
 
 .about-image.active {
@@ -594,12 +631,10 @@ nav {
     transform: translateX(0);
 }
 
-/* ABOUT DETAILS (EDUCATION & LOCATION) */
 .about-details {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* Tighter gap */
     margin-top: 15px;
 }
 
@@ -607,59 +642,50 @@ nav {
     display: flex;
     align-items: center;
     gap: 15px;
-    /* Reduced gap */
     text-decoration: none;
     background: rgba(255, 255, 255, 0.03);
     padding: 10px 12px;
-    /* More compact padding */
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.3s ease;
 }
 
 .detail-item:hover {
-    background: rgba(255, 69, 0, 0.1);
-    border-color: rgba(255, 69, 0, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
     transform: translateX(5px);
 }
 
 .detail-icon,
 .detail-icon-img {
     width: 45px;
-    /* Smaller icon size */
     height: 45px;
-    background: rgba(255, 69, 0, 0.1);
-    /* Unified Orange Background */
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    /* Semi-rounded square like location */
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--accent-orange);
     flex-shrink: 0;
     overflow: hidden;
-    /* For img */
     border: none;
     padding: 0;
+    transition: color 0.3s ease;
 }
 
 .detail-icon {
     font-size: 1.2rem;
-    /* Adjusted icon font size */
 }
 
 .uni-logo {
     width: 70%;
-    /* Shrink to fit inside */
     height: 70%;
     object-fit: contain;
     border-radius: 0;
-    /* Container handles the shape */
 }
 
 .detail-info h4 {
     font-size: 0.95rem;
-    /* Smaller text */
     color: #fff;
     margin-bottom: 2px;
     font-weight: 700;
@@ -668,14 +694,12 @@ nav {
 
 .detail-label {
     font-size: 0.8rem;
-    /* Smaller label */
     color: var(--text-gray);
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-/* Responsive adjustment for About Details */
 @media (max-width: 768px) {
     .detail-info h4 {
         font-size: 1rem;
@@ -687,23 +711,15 @@ nav {
     }
 }
 
-/* 7. SKILLS SECTION (5 ATAS, 5 BAWAH) */
-/* Memastikan Judul Skills di bawahnya tidak naik */
 .skills-section {
     min-height: 105vh;
-    /* Memaksa satu section mengambil satu layar penuh */
     display: flex;
     align-items: center;
-    /* Konten berada di tengah secara vertikal */
     justify-content: center;
-    /* Konten berada di tengah secara horizontal */
     padding: 20px 0 0;
-    /* Tambah padding atas untuk ruang dari nav */
     position: relative;
     margin-bottom: 0;
-    /* Hapus margin bawah untuk transisi mulus */
     overflow: hidden;
-    /* Pastikan tidak ada overflow */
     opacity: 0;
     transform: translateY(50px);
     transition: all 1s ease-out;
@@ -721,59 +737,43 @@ nav {
     text-align: center;
 }
 
-/* Container Utama Skills dengan efek Liquid Glass */
 .skills-wrapper {
     width: 100%;
     overflow: hidden;
     padding: 50px 0;
     position: relative;
-
-    /* EFEK LIQUID GLASS (Sama dengan About Me) */
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-
-    /* Jika ingin ujungnya melengkung sedikit (opsional) */
     border-radius: 20px;
-
     margin: 20px 0;
 }
 
-/* Track yang bergerak */
 .skills-track {
     display: flex;
     gap: 30px;
-    /* Jarak antar icon */
     width: max-content;
     animation: marquee 30s linear infinite;
-    /* Gerakan terus menerus */
 }
 
-/* Animasi dari kanan ke kiri */
 @keyframes marquee {
     0% {
         transform: translateX(0);
     }
 
     100% {
-        /* Geser sejauh setengah lebar track (karena kita menduplikasi list) */
         transform: translateX(-50%);
     }
 }
 
-
-
-/* Pastikan ukuran card seragam di dalam baris */
 .skill-card {
     flex: 0 0 250px;
-    /* Lebar tetap setiap card */
     min-width: 250px;
     margin: 0;
     opacity: 1 !important;
-    /* Matikan opacity scroll reveal jika pakai marquee */
     transform: none !important;
 }
 
@@ -792,7 +792,6 @@ nav {
     font-size: 1.2rem;
 }
 
-/* 1. Atur posisi awal (sembunyi dan di sebelah kanan) */
 .skill-card {
     background: #111;
     border: 1px solid #222;
@@ -800,20 +799,16 @@ nav {
     border-radius: 12px;
     text-align: center;
     cursor: pointer;
-
-    /* Efek Geser: Mulai dari kanan (50px) dan transparan */
     opacity: 0;
     transform: translateX(50px);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 2. State Aktif: Muncul dan bergeser ke kiri (posisi asli) */
 .skills-section.active .skill-card {
     opacity: 1;
     transform: translateX(0);
 }
 
-/* 3. Staggered Delay: Agar icon muncul satu per satu (efek gelombang) */
 .skill-card:nth-child(1) {
     transition-delay: 0.1s;
 }
@@ -870,7 +865,6 @@ nav {
     transform: scale(1.2);
 }
 
-/* Warna Ikon & Hover Per Card */
 .networking .skill-icon {
     color: #00d2ff;
 }
@@ -944,7 +938,6 @@ nav {
     box-shadow: 0 0 20px rgba(49, 168, 255, 0.3);
 }
 
-/* MySQL Style Section */
 .mysql .skill-icon {
     color: #4479A1;
 }
@@ -963,59 +956,79 @@ nav {
     box-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
 }
 
-/* Cari atau buat blok ini di bagian bawah file CSS kamu */
 @media (max-width: 768px) {
-
-    /* Membuat seluruh section Skills memenuhi layar HP */
     .skills-section {
         min-height: 50vh;
-        /* Full layar HP */
         display: flex;
         flex-direction: column;
         justify-content: center;
-        /* Konten di tengah secara vertikal */
         align-items: center;
-        padding: 100px 0 50px;
-        /* Jarak agar tidak tertutup Navbar */
+        padding: 50px 0 50px;
     }
 
-    /* 1. Mengatur kotak pembungkus agar lebih panjang (fuller look) */
+    .skills-section .section-title {
+        margin-bottom: 10px;
+    }
+
+    .skills-section .section-subtitle,
+    .achievements-section .section-subtitle,
+    .experience-section .section-subtitle {
+        margin: 0 auto 30px;
+        padding: 15px 20px;
+        width: 90%;
+        font-size: 0.95rem;
+        border-radius: 15px;
+        display: block;
+    }
+
+    .skills-section .section-subtitle::before,
+    .skills-section .section-subtitle::after,
+    .achievements-section .section-subtitle::before,
+    .achievements-section .section-subtitle::after {
+        display: none;
+    }
+
+    .skills-section .section-subtitle::before,
+    .achievements-section .section-subtitle::before,
+    .experience-section .section-subtitle::before {
+        display: block;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--accent-orange);
+    }
+
     .skills-wrapper {
         height: 68vh;
-        /* Mengambil 68% tinggi layar HP */
         width: 90%;
         margin: 0 auto;
         overflow: hidden;
         display: flex;
         align-items: flex-start;
         padding: 20px 0;
-        /* Efek glassmorphism agar konsisten */
         background: rgba(255, 255, 255, 0.05);
         backdrop-filter: blur(12px);
         border-radius: 20px;
     }
 
-    /* 2. Mengubah arah gerakan menjadi vertikal (kolom) */
     .skills-track {
         flex-direction: column;
         animation: marqueeVertical 20s linear infinite;
-        /* Durasi ditambah agar tidak pusing */
         width: 100%;
         gap: 20px;
     }
 
-    /* 3. Menyesuaikan ukuran kartu agar pas di layar HP */
     .skill-card {
         flex: 0 0 auto;
         width: 85%;
-        /* Sedikit lebih ramping agar estetik */
         margin: 0 auto;
         min-width: unset;
         min-height: 110px;
-        /* Pastikan kartu punya tinggi minimal */
     }
 
-    /* 4. KEYFRAMES: Gerakan dari bawah ke atas */
     @keyframes marqueeVertical {
         0% {
             transform: translateY(0);
@@ -1031,20 +1044,14 @@ nav {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    /* Ubah agar judul dan grid tersusun vertikal */
     align-items: center;
     justify-content: flex-start;
-    /* Mulai dari atas, bukan tengah, agar tidak terpotong saat memanjang */
     padding: 100px 10% 50px;
-    /* Beri ruang atas (untuk nav) dan ruang bawah */
     height: auto;
-    /* Biarkan tinggi menyesuaikan konten */
     opacity: 0;
     transform: translateY(50px);
     transition: all 1s ease-out;
 }
-
-/* Mobile Media Query removed - relocated to end of section for correct cascade */
 
 .achievements-section.active {
     opacity: 1;
@@ -1054,13 +1061,10 @@ nav {
 .achievements-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* Tetap 2 kolom di desktop */
     gap: 30px;
     width: 100%;
-    /* Pastikan mengambil lebar penuh container */
     max-width: 1100px;
     margin: 40px auto;
-    /* Beri jarak dengan judul */
 }
 
 .achievement-card {
@@ -1068,14 +1072,37 @@ nav {
     border-radius: 15px;
     overflow: hidden;
     border: 3px solid var(--accent-orange);
-    box-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     background: #000;
     aspect-ratio: 4 / 3;
-    /* Changed to match standard photo/certificate ratio */
+
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* CHROMA GRID EFFECT */
+.achievements-section.active .achievement-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.achievements-section.active .achievement-card:nth-child(1) {
+    transition-delay: 0.5s;
+}
+
+.achievements-section.active .achievement-card:nth-child(2) {
+    transition-delay: 1.0s;
+}
+
+.achievements-section.active .achievement-card:nth-child(3) {
+    transition-delay: 1.5s;
+}
+
+.achievements-section.active .achievement-card:nth-child(4) {
+    transition-delay: 2.0s;
+}
+
 .achievement-card::before {
     content: "";
     position: absolute;
@@ -1084,29 +1111,26 @@ nav {
     width: 100%;
     height: 100%;
     background-image:
-        linear-gradient(rgba(255, 69, 0, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 69, 0, 0.1) 1px, transparent 1px);
+        linear-gradient(var(--accent-orange) 1px, transparent 1px),
+        linear-gradient(90deg, var(--accent-orange) 1px, transparent 1px);
     background-size: 30px 30px;
     z-index: 2;
     pointer-events: none;
-    opacity: 0.4;
+    opacity: 0.1;
     transition: all 0.5s ease;
 }
 
 .achievement-card:hover::before {
-    opacity: 0.8;
+    opacity: 0.2;
     background-size: 35px 35px;
-    /* Zoom effect */
-    box-shadow: inset 0 0 30px rgba(255, 69, 0, 0.2);
+    box-shadow: inset 0 0 30px var(--accent-orange);
 }
 
 .achievement-card img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* Fixes "zoomed in" issue - shows full image */
     background: #111;
-    /* Dark background for letterboxing */
     transition: transform 0.5s ease;
     display: block;
     position: relative;
@@ -1120,22 +1144,18 @@ nav {
 .achievement-overlay {
     position: absolute;
     z-index: 10;
-    /* Ensure overlay is on top of image (z=1) and grid (z=2) */
     bottom: -100%;
     left: 0;
     width: 100%;
     height: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.9);
-    /* Darker background for readability */
     display: flex;
     flex-direction: column;
-    /* Stack text vertically */
     justify-content: center;
     align-items: center;
     transition: 0.4s ease;
     padding: 20px;
-    /* Padding for text */
     text-align: center;
 }
 
@@ -1146,9 +1166,8 @@ nav {
 .achievement-overlay h3 {
     color: var(--accent-orange);
     font-size: 1.2rem;
-    /* Slightly smaller for balance */
     margin-bottom: 10px;
-    text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+    text-shadow: 0 0 10px var(--accent-dark);
     font-weight: 700;
 }
 
@@ -1159,37 +1178,29 @@ nav {
     margin: 0;
 }
 
-/* COLOR CODED CERTIFICATES */
-/* RevoU - Amber */
 .cert-revou .achievement-overlay h3,
 .cert-revou .achievement-overlay p {
     color: #FFD54F;
 }
 
-/* Thematic Academy - Light Blue */
 .cert-thematic .achievement-overlay h3,
 .cert-thematic .achievement-overlay p {
     color: #4FC3F7;
 }
 
-/* KarirNex - Green */
 .cert-karirnex .achievement-overlay h3,
 .cert-karirnex .achievement-overlay p {
     color: #81C784;
 }
 
-/* VSGA - Sky Blue */
 .cert-vsga .achievement-overlay h3,
 .cert-vsga .achievement-overlay p {
     color: #80D8FF;
 }
 
-/* FIX MOBILE ACHIEVEMENT DISPLAY */
-/* FIX MOBILE ACHIEVEMENT DISPLAY */
 @media (max-width: 768px) {
     .achievements-grid {
         grid-template-columns: 1fr !important;
-        /* Force 1 column */
         width: 100% !important;
         padding: 0 10px;
     }
@@ -1198,10 +1209,8 @@ nav {
         width: 100% !important;
         max-width: 100% !important;
         aspect-ratio: 4/3;
-        /* Standard ratio to fit certificate without bars */
     }
 
-    /* Refine Overlay for Mobile */
     .achievement-overlay {
         padding: 15px;
     }
@@ -1217,27 +1226,20 @@ nav {
     }
 }
 
-/* =========================================
-   9. WORK EXPERIENCE SECTION (FIXED VERSION)
-   ========================================= */
 .experience-section {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    /* Konten mulai dari atas agar tidak terpotong */
     padding: 120px 10% 80px;
-    /* Padding atas besar supaya judul di bawah navbar */
     position: relative;
     opacity: 0;
     transform: translateY(50px);
     transition: all 1s ease-out;
     scroll-margin-top: 50px;
-    /* Jarak pas saat klik menu navigasi */
 }
 
-/* Pastikan section muncul saat class active ditambahkan oleh JS */
 .experience-section.active {
     opacity: 1 !important;
     transform: translateY(0);
@@ -1260,14 +1262,13 @@ nav {
     border-radius: 20px;
     max-width: 850px;
     margin: 40px auto;
-    /* Memberi jarak antar kartu */
     transition: all 0.3s ease;
 }
 
 .experience-card:hover {
     transform: translateY(-5px);
     border-color: var(--accent-orange);
-    box-shadow: 0 10px 40px rgba(255, 69, 0, 0.2);
+    box-shadow: 0 10px 40px var(--accent-dark);
 }
 
 .exp-header {
@@ -1289,7 +1290,7 @@ nav {
     align-items: center;
     font-size: 1.8rem;
     color: white;
-    box-shadow: 0 0 20px rgba(255, 69, 0, 0.4);
+    box-shadow: 0 0 20px var(--accent-dark);
     flex-shrink: 0;
 }
 
@@ -1322,7 +1323,6 @@ nav {
     gap: 15px;
     margin-bottom: 5px;
     flex-wrap: wrap;
-    /* Pastikan aman di layar kecil */
 }
 
 .exp-details h5 {
@@ -1330,7 +1330,6 @@ nav {
     font-size: 0.95rem;
     font-weight: 500;
     margin: 0;
-    /* Hapus margin bawaan */
 }
 
 .exp-date {
@@ -1343,7 +1342,6 @@ nav {
     font-weight: 600;
     text-transform: uppercase;
     background: rgba(255, 69, 0, 0.1);
-    /* Sedikit background supaya pop */
 }
 
 .exp-content p {
@@ -1354,11 +1352,9 @@ nav {
     margin: 0;
 }
 
-/* Penyesuaian untuk tampilan HP agar tidak tertutup */
 @media (max-width: 768px) {
     .experience-section {
         padding: 150px 5% 50px;
-        /* Padding atas lebih besar untuk HP */
     }
 
     .exp-header {
@@ -1377,7 +1373,6 @@ nav {
 
     .exp-content p {
         text-align: center;
-        /* Fix spacing issue by centering text */
         text-align-last: center;
     }
 }
@@ -1388,14 +1383,12 @@ nav {
     }
 }
 
-/* RESPONSIVE SKILLS */
 @media (max-width: 768px) {
     .skills-section {
         padding: 120px 0 0;
     }
 }
 
-/* --- CONTACT SECTION REBORN (LIQUID GLASS VERSION) --- */
 .contact-section {
     min-height: 100vh;
     display: flex;
@@ -1403,10 +1396,8 @@ nav {
     justify-content: center;
     padding: 20px 10% 0;
     position: relative;
-    /* Background dengan gradasi halus agar efek glassmorphism menonjol */
     overflow: hidden;
 
-    /* Animasi masuk */
     opacity: 0;
     transform: translateY(50px);
     transition: all 1s ease-out;
@@ -1417,29 +1408,18 @@ nav {
     transform: translateY(0);
 }
 
-/* Container untuk merapikan Judul & Grid */
 .contact-section .container {
     width: 100%;
     max-width: 1100px;
     text-align: center;
 }
 
-/* Judul & Subtitle yang rapat */
 .section-title {
     margin-bottom: 5px !important;
 }
 
-.contact-subtitle {
-    color: #a0a0a0;
-    font-size: 1.1rem;
-    margin-top: -5px;
-    /* Menarik teks ke atas agar rapat dengan judul */
-    margin-bottom: 50px;
-    font-weight: 300;
-    display: block;
-}
 
-/* GRID SYSTEM */
+
 .contact-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1447,9 +1427,7 @@ nav {
     width: 100%;
 }
 
-/* CARD DENGAN EFEK LIQUID GLASS */
 .contact-card {
-    /* Base Glassmorphism */
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -1484,21 +1462,19 @@ nav {
     word-break: break-all;
 }
 
-/* --- EFEK HOVER LIQUID --- */
 .contact-card:hover {
     transform: translateY(-12px);
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--accent-orange);
-    box-shadow: 0 20px 40px rgba(255, 69, 0, 0.25);
+    box-shadow: 0 20px 40px var(--accent-dark);
 }
 
 .contact-card:hover .contact-icon {
     transform: scale(1.15);
-    color: #ff8c00;
-    text-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
+    color: var(--accent-orange);
+    text-shadow: 0 0 15px var(--accent-dark);
 }
 
-/* RESPONSIVE */
 @media (max-width: 1024px) {
     .contact-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1512,13 +1488,11 @@ nav {
 
     .contact-grid {
         grid-template-columns: 1fr;
-        /* Satu kolom untuk HP */
         max-width: 400px;
         margin: 0 auto;
     }
 }
 
-/* EXTRA RESPONSIVE FOR SMALL SCREENS */
 @media (max-width: 480px) {
     nav {
         padding: 15px 3%;
@@ -1600,7 +1574,6 @@ nav {
     }
 }
 
-/* 9. TYPING ANIMATION CURSOR */
 .cursor {
     display: inline-block;
     color: var(--accent-orange);
@@ -1621,25 +1594,20 @@ nav {
     }
 }
 
-/* Memberikan jarak khusus antara Judul Skills dan Icon */
 .skills-section .section-title {
     margin-bottom: 40px !important;
-    /* Ubah angka ini untuk mengatur spasi */
 }
 
 .skills-grid {
     margin-top: 10px;
-    /* Atau bisa juga tambah margin di atas grid icon */
 }
 
-/* CSS for the new caption in Skills Section */
 .skills-caption {
     margin-top: 10px;
     font-size: 0.9rem;
     color: #888;
 }
 
-/* Organization Description List - Fix Alignment */
 .org-desc-list {
     text-align: left;
     display: inline-block;
@@ -1655,40 +1623,31 @@ nav {
 
 #organization .exp-content {
     text-align: left;
-    /* Ensure container aligns left */
     padding: 0 20px;
 }
 
-
-
-/* Adjust margin for section title in skills section specifically if needed */
 .skills-section .section-title {
     margin-bottom: 10px !important;
 }
 
-/* --- ORGANIZATION SECTION --- */
 .organization-section {
     min-height: 100vh;
-    /* Ini yang membuat tampilan full layar */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 120px 10% 80px;
     position: relative;
     opacity: 0;
-    /* Untuk animasi reveal */
     transform: translateY(50px);
     transition: all 1s ease-out;
 }
 
-/* Muncul saat di-scroll (Pastikan JS kamu mendukung class .active) */
 .organization-section.active {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Styling khusus untuk list di dalam pengalaman organisasi */
 .exp-content ul {
     list-style: none;
     padding: 0;
@@ -1704,7 +1663,6 @@ nav {
     text-align: left;
 }
 
-/* Bullet points oranye kecil */
 .exp-content ul li::before {
     content: "•";
     color: var(--accent-orange);
@@ -1716,7 +1674,6 @@ nav {
     vertical-align: middle;
 }
 
-/* Typing Cursor Styles */
 .typing-cursor {
     display: inline-block;
     width: 2px;
@@ -1725,4 +1682,128 @@ nav {
     animation: blink 1s infinite;
     vertical-align: text-bottom;
     margin-left: 2px;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    animation: bounce 2s infinite;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0s 0s;
+    will-change: transform, opacity;
+}
+
+.scroll-indicator.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0s 0.5s;
+}
+
+.scroll-indicator a {
+    color: var(--text-white);
+    font-size: 2rem;
+    text-decoration: none;
+    transition: color 0.3s;
+    display: block;
+}
+
+.scroll-indicator a:hover {
+    color: var(--accent-orange);
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-15px);
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(-7px);
+    }
+}
+
+.theme-switch-wrapper {
+    position: fixed;
+    top: auto;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    gap: 12px;
+    z-index: 1100;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 8px 15px;
+    border-radius: 30px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.theme-switch-wrapper:hover {
+    background: rgba(0, 0, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.theme-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    padding: 0;
+}
+
+.theme-btn:hover {
+    transform: scale(1.2);
+    border-color: #fff;
+}
+
+.theme-btn.active {
+    transform: scale(1.3);
+    border-color: #fff;
+    box-shadow: 0 0 10px var(--accent-orange);
+}
+
+.theme-btn[data-theme="default"] {
+    background: #FF4500;
+}
+
+.theme-btn[data-theme="blue"] {
+    background: #00d2ff;
+}
+
+.theme-btn[data-theme="green"] {
+    background: #2ecc71;
+}
+
+.theme-btn[data-theme="purple"] {
+    background: #9b59b6;
+}
+
+.theme-btn[data-theme="yellow"] {
+    background: #f1c40f;
+}
+
+@media (max-width: 768px) {
+    .theme-switch-wrapper {
+        display: none;
+    }
+
+    .theme-btn {
+        width: 18px;
+        height: 18px;
+    }
 }
