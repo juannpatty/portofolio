@@ -28,6 +28,16 @@
                 <li><a href="#experience">WORK EXPERIENCE</a></li>
                 <li><a href="#organization">ORGANIZATION</a></li>
                 <li><a href="#contact">CONTACT</a></li>
+                <li class="mobile-theme-item">
+                    <span>Theme</span>
+                    <div class="mobile-theme-switch">
+                        <button class="theme-btn active" data-theme="default" aria-label="Default Theme"></button>
+                        <button class="theme-btn" data-theme="blue" aria-label="Blue Theme"></button>
+                        <button class="theme-btn" data-theme="green" aria-label="Green Theme"></button>
+                        <button class="theme-btn" data-theme="purple" aria-label="Purple Theme"></button>
+                        <button class="theme-btn" data-theme="yellow" aria-label="Yellow Theme"></button>
+                    </div>
+                </li>
             </ul>
         </nav>
     </header>
@@ -61,6 +71,12 @@
                 </div>
                 <div class="circle-glow"></div>
             </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <a href="#about">
+                <i class="fas fa-chevron-down"></i>
+            </a>
         </div>
     </main>
     <section id="about" class="about-section reveal">
@@ -117,6 +133,7 @@
     <section id="skills" class="skills-section reveal">
         <div class="container">
             <h2 class="section-title">MY SKILLS & <span>TOOLS</span></h2>
+            <p class="section-subtitle">Technologies and tools I use for my work</p>
 
             <div class="skills-wrapper">
                 <div class="skills-track">
@@ -208,6 +225,8 @@
     <section id="achievements" class="achievements-section reveal">
         <div class="container">
             <h2 class="section-title">MY <span>ACHIEVEMENTS</span></h2>
+            <p class="section-subtitle">A selection of certification and learning achievements that reflect my
+                continuous growth in technology and problem solving. Click on each certificate to view the details.</p>
             <div class="achievements-grid">
                 <div class="achievement-card cert-revou">
                     <img src="5.jpeg" alt="Certificate 1">
@@ -249,6 +268,8 @@
     <section id="experience" class="experience-section reveal">
         <div class="container">
             <h2 class="section-title">WORK <span>EXPERIENCE</span></h2>
+            <p class="section-subtitle">A chronological overview of my journey and the value I’ve delivered
+                to each role.</p>
 
             <div class="experience-card">
                 <div class="exp-header">
@@ -257,17 +278,12 @@
                         <h3>IT Support & Administrator</h3>
                         <h4>BADAN PERTANAHAN NASIONAL KOTA AMBON</h4>
                         <div class="exp-meta">
-                            <h5>FEB 2024 - OCT 2024</h5>
+                            <h5>FEB 2024 - SEP 2024</h5>
                             <span class="exp-date">Internship</span>
                         </div>
                     </div>
                 </div>
-                <div class="exp-content">
-                    <p>Responsible for maintaining computer systems, troubleshooting network issues, and managing
-                        administrative data to ensure efficient office operations.</p>
-                </div>
             </div>
-
             <div class="experience-card">
                 <div class="exp-header">
                     <div class="exp-icon"><i class="fas fa-laptop-medical"></i></div>
@@ -279,11 +295,6 @@
                             <span class="exp-date">Full-Time</span>
                         </div>
                     </div>
-                </div>
-                <div class="exp-content">
-                    <p>Responsible for managing faculty IT infrastructure, maintaining academic information systems,
-                        providing technical support for medical software/hardware, and ensuring network stability to
-                        support teaching and administrative activities.</p>
                 </div>
             </div>
 
@@ -299,10 +310,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="exp-content">
-                    <p>Responsible for capturing high-quality photos and videos for events, products, and personal
-                        branding to support promotional and creative needs.</p>
-                </div>
             </div>
 
             <div class="experience-card">
@@ -316,10 +323,6 @@
                             <span class="exp-date">Freelance</span>
                         </div>
                     </div>
-                </div>
-                <div class="exp-content">
-                    <p>Editing photos and videos professionally using creative techniques to enhance visual quality for
-                        social media, marketing, and documentation purposes.</p>
                 </div>
             </div>
 
@@ -335,10 +338,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="exp-content">
-                    <p>Designing visual content such as posters, banners, logos, and social media materials to support
-                        branding and communication goals.</p>
-                </div>
             </div>
 
         </div>
@@ -347,13 +346,15 @@
     <section id="organization" class="experience-section reveal">
         <div class="container">
             <h2 class="section-title">ORGANIZATION <span>EXPERIENCE</span></h2>
+            <p class="section-subtitle">Actively contributing to communities and driving positive change through
+                organizational roles.</p>
 
             <div class="experience-card">
                 <div class="exp-header">
                     <div class="exp-icon"><i class="fas fa-users"></i></div>
                     <div class="exp-details">
-                        <h3>Public Relations, Decoration, & Documentation (PDD)</h3>
-                        <h4>SENAT MAHASISWA FAKULTAS ILMU KOMPUTER</h4>
+                        <h3>SENAT MAHASISWA FAKULTAS ILMU KOMPUTER</h3>
+                        <h4>Public Relations, Decoration, & Documentation (PDD)</h4>
                         <div class="exp-meta">
                             <h5>Media and Communication</h5>
                             <span class="exp-date">Student Organization</span>
@@ -363,7 +364,6 @@
                 </div>
                 <div class="exp-content">
                     <ul class="org-desc-list" id="org-typing-list">
-                        <!-- Content will be typed by JS -->
                     </ul>
                 </div>
             </div>
@@ -374,7 +374,7 @@
     <section id="contact" class="contact-section reveal">
         <div class="container">
             <h2 class="section-title">GET IN <span>TOUCH</span></h2>
-            <p class="contact-subtitle">Feel free to reach me through these platforms</p>
+            <p class="section-subtitle">Feel free to reach me through these platforms</p>
             <div class="contact-grid">
                 <a href="mailto:juannpatty@gmail.com" class="contact-card">
                     <div class="contact-icon"><i class="fas fa-envelope"></i></div>
@@ -398,6 +398,14 @@
             </div>
         </div>
     </section>
+
+    <div class="theme-switch-wrapper">
+        <button class="theme-btn active" data-theme="default" aria-label="Default Theme"></button>
+        <button class="theme-btn" data-theme="blue" aria-label="Blue Theme"></button>
+        <button class="theme-btn" data-theme="green" aria-label="Green Theme"></button>
+        <button class="theme-btn" data-theme="purple" aria-label="Purple Theme"></button>
+        <button class="theme-btn" data-theme="yellow" aria-label="Yellow Theme"></button>
+    </div>
 
     <script src="script.js"></script>
 </body>
